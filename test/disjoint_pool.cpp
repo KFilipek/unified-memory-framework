@@ -47,7 +47,7 @@ static auto makePool() {
     retp = umfPoolCreate(&UMF_DISJOINT_POOL_OPS, provider_handle, &params, &pool);
     EXPECT_EQ(retp, UMF_RESULT_SUCCESS);
 
-    return std::move(umf::pool_unique_handle_t(pool, std::move(poolDestructor)));
+    return umf::pool_unique_handle_t(pool, poolDestructor);
 }
 
 using umf_test::test;
