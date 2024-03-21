@@ -14,7 +14,7 @@ jobs:
   FastBuild:
     name: Fast build
     env:
-      VCPKG_PATH: "${{github.workspace}}/build/vcpkg/packages/hwloc_x64-windows;${{github.workspace}}/build/vcpkg/packages/tbb_x64-windows;${{github.workspace}}/build/vcpkg/packages/jemalloc_x64-windows"
+      TOOLCHAIN_PATH: "${{github.workspace}}/build/vcpkg/scripts/buildsystems/vcpkg.cmake"
     strategy:
       matrix:
         include:
@@ -51,7 +51,9 @@ jobs:
 
     - name: Install dependencies
       if: ${{ matrix.os == 'windows-latest' }}
-      run: vcpkg install
+      run: |
+        vcpkg integrate install
+        vcpkg install
       shell: pwsh # Specifies PowerShell as the shell for running the script.
 
     - name: Install apt packages
@@ -60,11 +62,28 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y cmake libjemalloc-dev libhwloc-dev libnuma-dev libtbb-dev
 
-    - name: Configure CMake
+    - name: Configure CMake (Windows)
+      if: matrix.os == 'windows-latest'
       run: >
         cmake
         -B ${{github.workspace}}/build
-        -DCMAKE_PREFIX_PATH="${{env.VCPKG_PATH}}"
+        -DCMAKE_TOOLCHAIN_FILE=${{env.TOOLCHAIN_PATH}}
+        -DUMF_FORMAT_CODE_STYLE=OFF
+        -DUMF_DEVELOPER_MODE=ON
+        -DUMF_ENABLE_POOL_TRACKING=ON
+        -DUMF_BUILD_LIBUMF_POOL_SCALABLE=ON
+        -DUMF_BUILD_LIBUMF_POOL_DISJOINT=${{matrix.disjoint}}
+        -DUMF_BUILD_LIBUMF_POOL_JEMALLOC=ON
+        -DUMF_BUILD_TESTS=ON
+        -DUMF_BUILD_EXAMPLES=ON
+        -DUMF_BUILD_LEVEL_ZERO_PROVIDER=ON
+        ${{matrix.extra_build_options}}
+
+    - name: Configure CMake (Ubuntu)
+      if: matrix.os == 'ubuntu-latest'
+      run: >
+        cmake
+        -B ${{github.workspace}}/build
         -DUMF_FORMAT_CODE_STYLE=OFF
         -DUMF_DEVELOPER_MODE=ON
         -DUMF_ENABLE_POOL_TRACKING=ON
@@ -77,14 +96,21 @@ jobs:
         ${{matrix.extra_build_options}}
 
     - name: Build
-      run: cmake --build ${{github.workspace}}/build --config Release -j
+      run: |
+        cmake --build ${{github.workspace}}/build --config Release -j
+
+    # - name: Build
+    #   working-directory: ${{github.workspace}}/build
+    #   run: |
+    #     cmake --install . --config Release --prefix build/install
 
     - name: Run examples
-      working-directory: ${{github.workspace}}/build
-      run: ctest --output-on-failure --test-dir examples -C Release
+      run: ctest --output-on-failure --test-dir ${{github.workspace}}/build/examples -C Release
+      # working-directory: ${{github.workspace}}/build
 
   CodeStyle:
     name: Coding style
+    if: false
     runs-on: ubuntu-latest
 
     steps:

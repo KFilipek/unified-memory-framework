@@ -15,6 +15,9 @@ if(UMF_BUILD_LIBUMF_POOL_SCALABLE AND UMF_ENABLE_POOL_TRACKING)
                                 ${UMF_CMAKE_SOURCE_DIR}/include)
 
     target_link_directories(${EXAMPLE_NAME} PRIVATE ${LIBHWLOC_LIBRARY_DIRS})
+    find_package(TBB CONFIG REQUIRED)
+    target_link_libraries(${EXAMPLE_NAME} PRIVATE TBB::tbb TBB::tbbmalloc
+        TBB::tbbmalloc_proxy)
 
     add_test(
         NAME ${EXAMPLE_NAME}
