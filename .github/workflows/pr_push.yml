@@ -91,7 +91,7 @@ jobs:
     needs: [Build]
     uses: ./.github/workflows/proxy_lib.yml
   GPU:
-    needs: [Build]
+    #    needs: [Build]
     uses: ./.github/workflows/gpu.yml
   Valgrind:
     needs: [Build]

@@ -3,7 +3,7 @@
 # appropriate GPU and drivers.
 name: GPU
 
-on: [workflow_call]
+on: [workflow_call, workflow_dispatch]
 
 permissions:
   contents: read
@@ -24,11 +24,11 @@ jobs:
           - os: 'Ubuntu'
             compiler: {c: gcc, cxx: g++}
             number_of_processors: '$(nproc)'
-          - os: 'Windows'
-            compiler: {c: cl, cxx: cl}
-            number_of_processors: '$Env:NUMBER_OF_PROCESSORS'
+              #          - os: 'Windows'
+              # compiler: {c: cl, cxx: cl}
+              #number_of_processors: '$Env:NUMBER_OF_PROCESSORS'
 
-    runs-on: ["DSS-LEVEL_ZERO", "DSS-${{matrix.os}}"]
+    runs-on: ["TEST_LABEL"]
     steps:
       - name: Checkout
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
