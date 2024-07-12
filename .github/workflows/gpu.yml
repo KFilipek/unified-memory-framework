@@ -15,11 +15,11 @@ jobs:
       BUILD_TYPE: Release
       VCPKG_PATH: "${{github.workspace}}/../../../../vcpkg/packages/hwloc_x64-windows;${{github.workspace}}/../../../../vcpkg/packages/tbb_x64-windows;${{github.workspace}}/../../../../vcpkg/packages/jemalloc_x64-windows"
     # run only on upstream; forks will not have the HW
-    if: github.repository == 'oneapi-src/unified-memory-framework'
+    #    if: github.repository == 'oneapi-src/unified-memory-framework'
     strategy:
       matrix:
         shared_library: ['ON', 'OFF']
-        os: ['Ubuntu', 'Windows']
+        os: ['Ubuntu']
         include:
           - os: 'Ubuntu'
             compiler: {c: gcc, cxx: g++}

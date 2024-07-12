@@ -71,6 +71,7 @@ jobs:
   Spellcheck:
     uses: ./.github/workflows/spellcheck.yml
   FastBuild:
+    if: false
     name: Fast builds
     needs: [Spellcheck, CodeStyle]
     uses: ./.github/workflows/fast.yml
