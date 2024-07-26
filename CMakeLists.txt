@@ -110,10 +110,11 @@ if(NOT UMF_LINK_HWLOC_STATICALLY)
             "${DLL_PATH_LIST};PATH=path_list_append:${LIBHWLOC_LIBRARY_DIRS}/../bin"
         )
     endif()
-else()
-    if(NOT WINDOWS)
-        message(FATAL_ERROR "hwloc can be statically linked only on Windows")
-    endif()
+    # add PATH to DLL on Windows
+    set(DLL_PATH_LIST
+        "${DLL_PATH_LIST};PATH=path_list_append:${LIBHWLOC_LIBRARY_DIRS}/../bin"
+    )
+elseif(WINDOWS)
     include(FetchContent)
     set(HWLOC_ENABLE_TESTING OFF)
     set(HWLOC_SKIP_LSTOPO ON)
@@ -137,6 +138,41 @@ else()
     message(STATUS "    LIBHWLOC_LIBRARIES = ${LIBHWLOC_LIBRARIES}")
     message(STATUS "    LIBHWLOC_INCLUDE_DIRS = ${LIBHWLOC_INCLUDE_DIRS}")
     message(STATUS "    LIBHWLOC_LIBRARY_DIRS = ${LIBHWLOC_LIBRARY_DIRS}")
+else()
+    include(FetchContent)
+    FetchContent_Declare(
+        hwloc_targ
+        GIT_REPOSITORY "https://github.com/open-mpi/hwloc.git"
+        GIT_TAG hwloc-2.10.0)
+
+    FetchContent_GetProperties(hwloc_targ)
+    if(NOT hwloc_targ_POPULATED)
+        FetchContent_MakeAvailable(hwloc_targ)
+    endif()
+
+    add_custom_command(
+        COMMAND ./autogen.sh
+        WORKING_DIRECTORY ${hwloc_targ_SOURCE_DIR}
+        OUTPUT ${hwloc_targ_SOURCE_DIR}/configure)
+    add_custom_command(
+        COMMAND
+            ./configure --prefix=${hwloc_targ_BINARY_DIR} --enable-static=yes
+            --enable-shared=no --disable-libxml2 --disable-levelzero
+        WORKING_DIRECTORY ${hwloc_targ_SOURCE_DIR}
+        OUTPUT ${hwloc_targ_SOURCE_DIR}/Makefile
+        DEPENDS ${hwloc_targ_SOURCE_DIR}/configure)
+
+    add_custom_command(
+        COMMAND bash ${CMAKE_CURRENT_SOURCE_DIR}/compile_hwloc.sh
+        WORKING_DIRECTORY ${hwloc_targ_SOURCE_DIR}
+        OUTPUT ${hwloc_targ_BINARY_DIR}/lib/libhwloc.a
+        DEPENDS ${hwloc_targ_SOURCE_DIR}/Makefile)
+
+    add_custom_target(hwloc DEPENDS ${hwloc_targ_BINARY_DIR}/lib/libhwloc.a)
+
+    set(LIBHWLOC_LIBRARY_DIRS ${hwloc_targ_BINARY_DIR}/lib)
+    set(LIBHWLOC_INCLUDE_DIRS ${hwloc_targ_BINARY_DIR}/include)
+    set(LIBHWLOC_LIBRARIES ${hwloc_targ_BINARY_DIR}/lib/libhwloc.a)
 endif()
 
 # This build type check is not possible on Windows when CMAKE_BUILD_TYPE is not
