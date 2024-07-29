@@ -349,6 +349,13 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Set up Homebrew
+      id: set-up-homebrew
+      uses: Homebrew/actions/setup-homebrew@master
+
+    - name: Install ACLOCAL
+      run: brew install autoconf automake libtool
+
     - name: Install Python requirements
       run: python3 -m pip install -r third_party/requirements.txt
 
