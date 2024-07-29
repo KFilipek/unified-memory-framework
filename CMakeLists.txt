@@ -158,6 +158,7 @@ else()
         COMMAND
             ./configure --prefix=${hwloc_targ_BINARY_DIR} --enable-static=yes
             --enable-shared=no --disable-libxml2 --disable-levelzero
+            CFLAGS=-fPIC CXXFLAGS=-fPIC
         WORKING_DIRECTORY ${hwloc_targ_SOURCE_DIR}
         OUTPUT ${hwloc_targ_SOURCE_DIR}/Makefile
         DEPENDS ${hwloc_targ_SOURCE_DIR}/configure)
