@@ -169,7 +169,12 @@ else()
         OUTPUT ${hwloc_targ_BINARY_DIR}/lib/libhwloc.a
         DEPENDS ${hwloc_targ_SOURCE_DIR}/Makefile)
 
-    add_custom_target(hwloc DEPENDS ${hwloc_targ_BINARY_DIR}/lib/libhwloc.a)
+    add_custom_target(hwloc_prod
+                      DEPENDS ${hwloc_targ_BINARY_DIR}/lib/libhwloc.a)
+    add_library(hwloc INTERFACE)
+    target_link_libraries(hwloc
+                          INTERFACE ${hwloc_targ_BINARY_DIR}/lib/libhwloc.a)
+    add_dependencies(hwloc hwloc_prod)
 
     set(LIBHWLOC_LIBRARY_DIRS ${hwloc_targ_BINARY_DIR}/lib)
     set(LIBHWLOC_INCLUDE_DIRS ${hwloc_targ_BINARY_DIR}/include)
