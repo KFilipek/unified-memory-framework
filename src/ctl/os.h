@@ -1,5 +1,5 @@
 /* SPDX-License-Identifier: BSD-3-Clause */
-/* Copyright 2017-2023, Intel Corporation */
+/* Copyright 2017-2024, Intel Corporation */
 
 /*
  * os.h -- os abstraction layer
@@ -8,8 +8,8 @@
 #ifndef PMDK_OS_H
 #define PMDK_OS_H 1
 
-#include <sys/stat.h>
 #include <stdio.h>
+#include <sys/stat.h>
 #include <unistd.h>
 
 #ifdef __cplusplus
@@ -35,8 +35,8 @@ struct iovec;
 #define OS_LOCK_UN 8
 
 typedef struct stat os_stat_t;
-#define os_fstat	fstat
-#define os_lseek	lseek
+#define os_fstat fstat
+#define os_lseek lseek
 
 #define os_close close
 #define os_fclose fclose
@@ -63,6 +63,19 @@ int os_setenv(const char *name, const char *value, int overwrite);
 char *os_getenv(const char *name);
 const char *os_strsignal(int sig);
 int os_execv(const char *path, char *const argv[]);
+
+FILE *os_fopen(const char *filename, const char *mode) {
+#ifdef _MSC_VER
+    FILE *file;
+    if (0 == fopen_s(&file, filename, mode)) {
+        return file;
+    } else {
+        return UBENCH_NULL;
+    }
+#else
+    return fopen(filename, mode);
+#endif
+}
 
 /*
  * XXX: missing APis (used in ut_file.c)
