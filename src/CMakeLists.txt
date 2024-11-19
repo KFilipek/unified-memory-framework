@@ -26,8 +26,12 @@ add_subdirectory(coarse)
 
 set(UMF_LIBS $<BUILD_INTERFACE:umf_utils> $<BUILD_INTERFACE:coarse>)
 
+set(CTL_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/ctl/alloc.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/ctl/ctl.c)
+
 if(LINUX)
-    set(BA_SOURCES ${BA_SOURCES}
+    set(BA_SOURCES ${BA_SOURCES} ${CTL_SOURCES}
                    ${CMAKE_CURRENT_SOURCE_DIR}/base_alloc/base_alloc_linux.c)
 elseif(WINDOWS)
     set(BA_SOURCES ${BA_SOURCES}
