@@ -25,8 +25,10 @@ set(BA_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/base_alloc/base_alloc_linear.c
     ${CMAKE_CURRENT_SOURCE_DIR}/base_alloc/base_alloc_global.c)
 
-set(CTL_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/ctl/alloc.c
-                ${CMAKE_CURRENT_SOURCE_DIR}/ctl/ctl.c)
+set(CTL_SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/ctl/alloc.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/ctl/ctl.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/ctl/ctl_debug.c)
 
 if(LINUX)
     set(BA_SOURCES ${BA_SOURCES} ${CTL_SOURCES}
