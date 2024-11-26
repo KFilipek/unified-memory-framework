@@ -232,13 +232,13 @@ function(add_umf_target_compile_options name)
             PRIVATE -fPIC
                     -Wall
                     -Wextra
-                    -Wpedantic
                     -Wempty-body
                     -Wunused-parameter
                     -Wformat
                     -Wformat-security
                     -Wcast-qual
                     -Wunused-result
+                    -Wno-cast-qual
                     $<$<CXX_COMPILER_ID:GNU>:-fdiagnostics-color=auto>)
         if(CMAKE_BUILD_TYPE STREQUAL "Release")
             target_compile_definitions(${name} PRIVATE -D_FORTIFY_SOURCE=2)
@@ -246,7 +246,7 @@ function(add_umf_target_compile_options name)
         if(UMF_DEVELOPER_MODE)
             target_compile_options(
                 ${name} PRIVATE -fno-omit-frame-pointer
-                                -fstack-protector-strong -Werror)
+                            -fstack-protector-strong -Werror)
         endif()
         if(UMF_USE_COVERAGE)
             if(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
