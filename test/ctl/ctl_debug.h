@@ -20,8 +20,7 @@
 extern "C" {
 #endif
 
-void debug_ctl_register(struct ctl *ctl);
-struct ctl *get_debug_ctl(void);
+void debug_ctl_register();
 void initialize_debug_ctl(void);
 void deinitialize_debug_ctl(void);
 

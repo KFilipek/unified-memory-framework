@@ -114,6 +114,8 @@ UMF_1.0 {
         umfScalablePoolParamsDestroy;
         umfScalablePoolParamsSetGranularity;
         umfScalablePoolParamsSetKeepAllMemory;
+        ctlAddPath;
+        ctlExecutePath;
     local:
         *;
 };
