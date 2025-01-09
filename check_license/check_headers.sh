@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
- # Copyright (C) 2016-2024 Intel Corporation
- # Under the Apache License v2.0 with LLVM Exceptions. See LICENSE.TXT.
- # SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+# Copyright (C) 2016-2025 Intel Corporation
+# Under the Apache License v2.0 with LLVM Exceptions. See LICENSE.TXT.
+# SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
 # check-headers.sh - check copyright and license in source files
 
@@ -142,29 +142,43 @@ s/.*Copyright (C) \([0-9]\+\).*/\1/' "$src_path")
 	COMMIT_FIRST=`echo $FIRST | cut -d"-" -f1`
 	COMMIT_LAST=` echo $LAST  | cut -d"-" -f1`
 
-    if [ "$COMMIT_FIRST" != "" -a "$COMMIT_LAST" != "" ]; then
-        if [[ -n "$COMMIT_FIRST" && -n "$COMMIT_LAST" ]]; then
-            if [[ $COMMIT_FIRST -eq $COMMIT_LAST ]]; then
-                NEW=$COMMIT_LAST
-            else
-                NEW=$COMMIT_FIRST-$COMMIT_LAST
-            fi
+	if [ "$COMMIT_FIRST" != "" -a "$COMMIT_LAST" != "" ]; then
+	    if [[ -n "$COMMIT_FIRST" && -n "$COMMIT_LAST" ]]; then
+	        if [[ $HEADER_FIRST -le $COMMIT_FIRST ]]; then
+ 	           if [[ $HEADER_LAST -eq $COMMIT_LAST ]]; then
+ 	               continue
+ 	           else
+ 	               if [[ ${UPDATE_DATES} -eq 1 ]]; then
+ 	                   NEW="$HEADER_FIRST-$COMMIT_LAST"
+  	                  sed -i "s/Copyright ${YEARS}/Copyright ${NEW}/g" "${src_path}"
+  	              else
+  	                  echo "$file:1: error: wrong copyright date: (is: $YEARS, should be: $HEADER_FIRST-$COMMIT_LAST)" >&2
+  	                  RV=1
+  	              fi
+ 	           fi
+ 	       else
+ 	           if [[ $COMMIT_FIRST -eq $COMMIT_LAST ]]; then
+ 	               NEW=$COMMIT_LAST
+  	          else
+ 	               NEW=$COMMIT_FIRST-$COMMIT_LAST
+  	          fi
 
-            if [[ "$YEARS" == "$NEW" ]]; then
-                continue
-            else 
-                if [[ ${UPDATE_DATES} -eq 1 ]]; then
-                    sed -i "s/Copyright ${YEARS}/Copyright ${NEW}/g" "${src_path}"
-                else
-                    echo "$file:1: error: wrong copyright date: (is: $YEARS, should be: $NEW)" >&2
-                    RV=1
-                fi
-            fi
-        fi
-    else
-        echo "error: unknown commit dates in file: $file" >&2
-        RV=1
-    fi
+  	          if [[ "$YEARS" == "$NEW" ]]; then
+  	              continue
+  	          else 
+  	              if [[ ${UPDATE_DATES} -eq 1 ]]; then
+ 	                   sed -i "s/Copyright ${YEARS}/Copyright ${NEW}/g" "${src_path}"
+  	              else
+  	                  echo "$file:1: error: wrong copyright date: (is: $YEARS, should be: $NEW)" >&2
+  	                  RV=1
+  	              fi
+  	          fi
+  	      fi
+  	  fi
+	else
+	    echo "error: unknown commit dates in file: $file" >&2
+	    RV=1
+	fi
 done
 rm -f $TMP $TMP2 $TEMPFILE
 
