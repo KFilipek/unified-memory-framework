@@ -50,6 +50,20 @@ typedef enum umf_result_t {
     UMF_RESULT_ERROR_UNKNOWN = 0x7ffffffe ///< Unknown or internal error
 } umf_result_t;
 
+/// @brief Type of the CTL query
+typedef enum umf_ctl_query_type {
+    CTL_QUERY_READ,
+    CTL_QUERY_WRITE,
+    CTL_QUERY_RUNNABLE,
+    CTL_QUERY_SUBTREE,
+
+    MAX_CTL_QUERY_TYPE
+} umf_ctl_query_type_t;
+
+int umf_ctl_get(const char *name, void *ctx, void *arg);
+int umf_ctl_set(const char *name, void *ctx, void *arg);
+int umf_ctl_exec(const char *name, void *ctx, void *arg);
+
 #ifdef __cplusplus
 }
 #endif

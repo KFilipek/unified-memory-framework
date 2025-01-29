@@ -1,6 +1,6 @@
 /*
  *
- * Copyright (C) 2024 Intel Corporation
+ * Copyright (C) 2024-2025 Intel Corporation
  *
  * Under the Apache License v2.0 with LLVM Exceptions. See LICENSE.TXT.
  * SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
@@ -10,6 +10,11 @@
 #include "../common/base.hpp"
 #include "ctl/ctl.h"
 #include "ctl/ctl_debug.h"
+#include <umf.h>
+#include <umf/base.h>
+#include <umf/providers/provider_os_memory.h>
+
+#include "gtest/gtest.h"
 
 using namespace umf_test;
 

@@ -8,6 +8,9 @@ UMF_0.10 {
         umfTearDown;
         umfGetCurrentVersion;
         umfCloseIPCHandle;
+        umf_ctl_exec;
+        umf_ctl_get;
+        umf_ctl_set;
         umfCUDAMemoryProviderOps;
         umfCUDAMemoryProviderParamsCreate;
         umfCUDAMemoryProviderParamsDestroy;
