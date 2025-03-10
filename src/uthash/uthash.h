@@ -37,7 +37,7 @@ Modifications by Intel:
 #include <stdlib.h> /* exit */
 #include <string.h> /* memcmp, memset, strlen */
 
-#include "base_alloc_global.h"
+#include "base_alloc/base_alloc_global.h"
 
 #if defined(HASH_DEFINE_OWN_STDINT) && HASH_DEFINE_OWN_STDINT
 /* This codepath is provided for backward compatibility, but I plan to remove it. */

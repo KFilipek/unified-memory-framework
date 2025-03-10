@@ -10,12 +10,12 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#include "base_alloc_global.h"
+#include "base_alloc/base_alloc_global.h"
 #include "libumf.h"
 #include "memtarget_internal.h"
 #include "memtarget_ops.h"
-#include "utils_concurrency.h"
-#include "utils_log.h"
+#include "utils/utils_concurrency.h"
+#include "utils/utils_log.h"
 
 umf_result_t umfMemtargetCreate(const umf_memtarget_ops_t *ops, void *params,
                                 umf_memtarget_handle_t *memoryTarget) {

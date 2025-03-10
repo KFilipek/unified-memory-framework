@@ -18,10 +18,10 @@
 
 #include <umf/providers/provider_os_memory.h>
 
-#include "critnib.h"
+#include "critnib/critnib.h"
 #include "umf_hwloc.h"
-#include "utils_common.h"
-#include "utils_concurrency.h"
+#include "utils/utils_common.h"
+#include "utils/utils_concurrency.h"
 
 #ifdef __cplusplus
 extern "C" {

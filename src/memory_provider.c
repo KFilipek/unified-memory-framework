@@ -14,11 +14,11 @@
 
 #include <umf/memory_provider.h>
 
-#include "base_alloc.h"
-#include "base_alloc_global.h"
+#include "base_alloc/base_alloc.h"
+#include "base_alloc/base_alloc_global.h"
 #include "libumf.h"
 #include "memory_provider_internal.h"
-#include "utils_assert.h"
+#include "utils/utils_assert.h"
 
 static umf_result_t umfDefaultPurgeLazy(void *provider, void *ptr,
                                         size_t size) {

@@ -16,14 +16,14 @@
 #include <umf/memory_pool_ops.h>
 #include <umf/memory_provider.h>
 
-#include "base_alloc_global.h"
+#include "base_alloc/base_alloc_global.h"
 #include "pool_disjoint_internal.h"
 #include "provider/provider_tracking.h"
 #include "uthash/utlist.h"
-#include "utils_common.h"
-#include "utils_concurrency.h"
-#include "utils_log.h"
-#include "utils_math.h"
+#include "utils/utils_common.h"
+#include "utils/utils_concurrency.h"
+#include "utils/utils_log.h"
+#include "utils/utils_math.h"
 
 // Temporary solution for disabling memory poisoning. This is needed because
 // AddressSanitizer does not support memory poisoning for GPU allocations.
@@ -31,7 +31,7 @@
 #ifndef POISON_MEMORY
 #undef __SANITIZE_ADDRESS__
 #endif
-#include "utils_sanitizers.h"
+#include "utils/utils_sanitizers.h"
 
 // Forward declarations
 static void bucket_update_stats(bucket_t *bucket, int in_use, int in_pool);

@@ -9,15 +9,15 @@
 
 #include <stddef.h>
 
-#include "base_alloc_global.h"
+#include "base_alloc/base_alloc_global.h"
 #include "ipc_cache.h"
 #include "memspace_internal.h"
 #include "pool/pool_scalable_internal.h"
-#include "provider_cuda_internal.h"
-#include "provider_level_zero_internal.h"
-#include "provider_tracking.h"
-#include "utils_common.h"
-#include "utils_log.h"
+#include "provider/provider_cuda_internal.h"
+#include "provider/provider_level_zero_internal.h"
+#include "provider/provider_tracking.h"
+#include "utils/utils_common.h"
+#include "utils/utils_log.h"
 #if !defined(UMF_NO_HWLOC)
 #include "topology.h"
 #endif

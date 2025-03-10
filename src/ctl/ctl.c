@@ -26,7 +26,7 @@
 
 #include "base_alloc/base_alloc_global.h"
 #include "utils/utils_common.h"
-#include "utlist.h"
+#include "uthash/utlist.h"
 
 #ifdef _WIN32
 #define strtok_r strtok_s

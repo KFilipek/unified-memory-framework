@@ -12,9 +12,9 @@
 
 #include <assert.h>
 
-#include "base_alloc_global.h"
+#include "base_alloc/base_alloc_global.h"
 #include "provider/provider_tracking.h"
-#include "utils_common.h"
+#include "utils/utils_common.h"
 
 static __TLS umf_result_t TLS_last_allocation_error;
 

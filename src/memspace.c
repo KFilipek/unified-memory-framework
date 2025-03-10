@@ -12,11 +12,11 @@
 
 #include <umf/memspace.h>
 
-#include "base_alloc_global.h"
+#include "base_alloc/base_alloc_global.h"
 #include "memspace_internal.h"
 #include "memtarget_internal.h"
 #include "memtarget_ops.h"
-#include "utils_log.h"
+#include "utils/utils_log.h"
 
 #ifndef NDEBUG
 static umf_result_t

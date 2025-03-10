@@ -58,13 +58,13 @@
 #include <stddef.h>
 #include <string.h>
 
-#include "base_alloc.h"
-#include "base_alloc_global.h"
-#include "critnib.h"
-#include "utils_assert.h"
-#include "utils_common.h"
-#include "utils_concurrency.h"
-#include "utils_math.h"
+#include "base_alloc/base_alloc.h"
+#include "base_alloc/base_alloc_global.h"
+#include "critnib/critnib.h"
+#include "utils/utils_assert.h"
+#include "utils/utils_common.h"
+#include "utils/utils_concurrency.h"
+#include "utils/utils_math.h"
 
 /*
  * A node that has been deleted is left untouched for this many delete

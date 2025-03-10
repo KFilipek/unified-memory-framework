@@ -18,7 +18,7 @@
 #include <umf/memory_provider_ops.h>
 #include <umf/providers/provider_file_memory.h>
 
-#include "utils_log.h"
+#include "utils/utils_log.h"
 
 #if defined(_WIN32) || defined(UMF_NO_HWLOC)
 
@@ -70,13 +70,13 @@ umf_result_t umfFileMemoryProviderParamsSetVisibility(
 
 #else // !defined(_WIN32) && !defined(UMF_NO_HWLOC)
 
-#include "base_alloc_global.h"
-#include "coarse.h"
-#include "critnib.h"
+#include "base_alloc/base_alloc_global.h"
+#include "coarse/coarse.h"
+#include "critnib/critnib.h"
 #include "libumf.h"
-#include "utils_common.h"
-#include "utils_concurrency.h"
-#include "utils_log.h"
+#include "utils/utils_common.h"
+#include "utils/utils_concurrency.h"
+#include "utils/utils_log.h"
 
 #define FSDAX_PAGE_SIZE_2MB ((size_t)(2 * 1024 * 1024)) // == 2 MB
 

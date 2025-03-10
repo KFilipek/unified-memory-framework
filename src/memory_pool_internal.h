@@ -21,8 +21,8 @@
 extern "C" {
 #endif
 
-#include "base_alloc.h"
-#include "utils_concurrency.h"
+#include "base_alloc/base_alloc.h"
+#include "utils/utils_concurrency.h"
 
 typedef struct umf_memory_pool_t {
     void *pool_priv;
