@@ -8,13 +8,13 @@
  */
 
 #include "provider_tracking.h"
-#include "base_alloc_global.h"
-#include "critnib.h"
+#include "base_alloc/base_alloc_global.h"
+#include "critnib/critnib.h"
 #include "ipc_cache.h"
 #include "ipc_internal.h"
-#include "utils_common.h"
-#include "utils_concurrency.h"
-#include "utils_log.h"
+#include "utils/utils_common.h"
+#include "utils/utils_concurrency.h"
+#include "utils/utils_log.h"
 
 #include <umf/memory_pool.h>
 #include <umf/memory_provider.h>

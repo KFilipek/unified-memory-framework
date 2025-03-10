@@ -15,8 +15,8 @@
 #include <umf/providers/provider_level_zero.h>
 
 #include "provider_level_zero_internal.h"
-#include "utils_load_library.h"
-#include "utils_log.h"
+#include "utils/utils_load_library.h"
+#include "utils/utils_log.h"
 
 static void *ze_lib_handle = NULL;
 

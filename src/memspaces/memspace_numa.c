@@ -27,9 +27,9 @@ umf_result_t umfMemspaceCreateFromNumaArray(unsigned *nodeIds, size_t numIds,
 
 #else // !defined(_WIN32) && !defined(UMF_NO_HWLOC)
 
-#include "../memspace_internal.h"
-#include "../memtargets/memtarget_numa.h"
-#include "base_alloc_global.h"
+#include "base_alloc/base_alloc_global.h"
+#include "memspace_internal.h"
+#include "memtargets/memtarget_numa.h"
 
 umf_result_t umfMemspaceCreateFromNumaArray(unsigned *nodeIds, size_t numIds,
                                             umf_memspace_handle_t *hMemspace) {

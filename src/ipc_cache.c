@@ -9,13 +9,13 @@
 
 #include <stdbool.h>
 
-#include "base_alloc_global.h"
+#include "base_alloc/base_alloc_global.h"
 #include "ipc_cache.h"
-#include "uthash.h"
-#include "utils_common.h"
-#include "utils_concurrency.h"
-#include "utils_log.h"
-#include "utlist.h"
+#include "uthash/uthash.h"
+#include "uthash/utlist.h"
+#include "utils/utils_common.h"
+#include "utils/utils_concurrency.h"
+#include "utils/utils_log.h"
 
 // HASH_ADD macro produces `warning C4702: unreachable code` on MSVC
 #ifdef _MSC_VER

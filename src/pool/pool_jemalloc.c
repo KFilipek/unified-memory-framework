@@ -10,11 +10,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "base_alloc_global.h"
-#include "utils_common.h"
-#include "utils_concurrency.h"
-#include "utils_log.h"
-#include "utils_sanitizers.h"
+#include "base_alloc/base_alloc_global.h"
+#include "utils/utils_common.h"
+#include "utils/utils_concurrency.h"
+#include "utils/utils_log.h"
+#include "utils/utils_sanitizers.h"
 
 #include <umf/memory_pool.h>
 #include <umf/memory_pool_ops.h>

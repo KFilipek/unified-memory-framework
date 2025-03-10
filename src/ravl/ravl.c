@@ -13,10 +13,10 @@
  */
 
 #include "ravl.h"
-#include "../src/utils/utils_common.h"
-#include "../src/utils/utils_concurrency.h"
 #include "assert.h"
-#include "base_alloc_global.h"
+#include "base_alloc/base_alloc_global.h"
+#include "utils/utils_common.h"
+#include "utils/utils_concurrency.h"
 
 #include <errno.h>
 #include <stdint.h>

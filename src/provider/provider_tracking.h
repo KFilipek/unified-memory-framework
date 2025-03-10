@@ -18,9 +18,9 @@
 #include <umf/memory_pool.h>
 #include <umf/memory_provider.h>
 
-#include "base_alloc.h"
-#include "critnib.h"
-#include "utils_concurrency.h"
+#include "../base_alloc/base_alloc.h"
+#include "../critnib/critnib.h"
+#include "../utils/utils_concurrency.h"
 
 #ifdef __cplusplus
 extern "C" {

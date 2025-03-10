@@ -8,7 +8,7 @@
  */
 #include <umf/mempolicy.h>
 
-#include "base_alloc_global.h"
+#include "base_alloc/base_alloc_global.h"
 #include "mempolicy_internal.h"
 
 umf_result_t umfMempolicyCreate(umf_mempolicy_membind_t bind,

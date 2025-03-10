@@ -25,13 +25,13 @@ umf_const_memspace_handle_t umfMemspaceLowestLatencyGet(void) {
 
 #else // !defined(_WIN32) && !defined(UMF_NO_HWLOC)
 
-#include "base_alloc_global.h"
+#include "base_alloc/base_alloc_global.h"
 #include "memspace_internal.h"
-#include "memtarget_numa.h"
+#include "memtargets/memtarget_numa.h"
 #include "topology.h"
-#include "utils_common.h"
-#include "utils_concurrency.h"
-#include "utils_log.h"
+#include "utils/utils_common.h"
+#include "utils/utils_concurrency.h"
+#include "utils/utils_log.h"
 
 static umf_result_t getBestLatencyTarget(umf_memtarget_handle_t initiator,
                                          umf_memtarget_handle_t *nodes,

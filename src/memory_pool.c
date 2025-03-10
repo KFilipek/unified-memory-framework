@@ -9,7 +9,7 @@
 
 #include "libumf.h"
 #include "memory_pool_internal.h"
-#include "utils_assert.h"
+#include "utils/utils_assert.h"
 
 #include <umf/memory_pool.h>
 #include <umf/memory_pool_ops.h>
@@ -17,10 +17,10 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#include "base_alloc_global.h"
+#include "base_alloc/base_alloc_global.h"
 #include "memory_pool_internal.h"
 #include "memory_provider_internal.h"
-#include "provider_tracking.h"
+#include "provider/provider_tracking.h"
 
 static umf_result_t umfPoolCreateInternal(const umf_memory_pool_ops_t *ops,
                                           umf_memory_provider_handle_t provider,

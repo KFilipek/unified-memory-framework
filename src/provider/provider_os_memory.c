@@ -90,13 +90,13 @@ umf_result_t umfOsMemoryProviderParamsSetPartitions(
 
 #else // !defined(UMF_NO_HWLOC)
 
-#include "base_alloc_global.h"
-#include "critnib.h"
+#include "base_alloc/base_alloc_global.h"
+#include "critnib/critnib.h"
 #include "libumf.h"
 #include "provider_os_memory_internal.h"
-#include "utils_common.h"
-#include "utils_concurrency.h"
-#include "utils_log.h"
+#include "utils/utils_common.h"
+#include "utils/utils_concurrency.h"
+#include "utils/utils_log.h"
 
 #define NODESET_STR_BUF_LEN 1024
 

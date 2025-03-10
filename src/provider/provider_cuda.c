@@ -13,8 +13,8 @@
 #include <umf/providers/provider_cuda.h>
 
 #include "provider_cuda_internal.h"
-#include "utils_load_library.h"
-#include "utils_log.h"
+#include "utils/utils_load_library.h"
+#include "utils/utils_log.h"
 
 static void *cu_lib_handle = NULL;
 

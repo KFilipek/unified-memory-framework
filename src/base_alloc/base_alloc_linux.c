@@ -9,7 +9,7 @@
 #include <sys/mman.h>
 #include <unistd.h>
 
-#include "utils_concurrency.h"
+#include "utils/utils_concurrency.h"
 
 static UTIL_ONCE_FLAG Page_size_is_initialized = UTIL_ONCE_FLAG_INIT;
 static size_t Page_size;

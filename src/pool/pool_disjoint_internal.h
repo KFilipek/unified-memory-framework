@@ -13,7 +13,7 @@
 #include <umf/pools/pool_disjoint.h>
 
 #include "critnib/critnib.h"
-#include "utils_concurrency.h"
+#include "utils/utils_concurrency.h"
 
 #define CHUNK_BITMAP_SIZE 64
 

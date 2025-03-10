@@ -18,14 +18,14 @@
 #include <umf/memory_provider.h>
 #include <umf/pools/pool_scalable.h>
 
-#include "base_alloc_global.h"
+#include "base_alloc/base_alloc_global.h"
 #include "libumf.h"
 #include "pool_scalable_internal.h"
-#include "utils_common.h"
-#include "utils_concurrency.h"
-#include "utils_load_library.h"
-#include "utils_log.h"
-#include "utils_sanitizers.h"
+#include "utils/utils_common.h"
+#include "utils/utils_concurrency.h"
+#include "utils/utils_load_library.h"
+#include "utils/utils_log.h"
+#include "utils/utils_sanitizers.h"
 
 typedef void *(*raw_alloc_tbb_type)(intptr_t, size_t *);
 typedef void (*raw_free_tbb_type)(intptr_t, void *, size_t);

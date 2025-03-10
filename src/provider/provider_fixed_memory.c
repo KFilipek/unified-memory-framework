@@ -17,12 +17,12 @@
 #include <umf/memory_provider_ops.h>
 #include <umf/providers/provider_fixed_memory.h>
 
-#include "base_alloc_global.h"
-#include "coarse.h"
+#include "base_alloc/base_alloc_global.h"
+#include "coarse/coarse.h"
 #include "libumf.h"
-#include "utils_common.h"
-#include "utils_concurrency.h"
-#include "utils_log.h"
+#include "utils/utils_common.h"
+#include "utils/utils_concurrency.h"
+#include "utils/utils_log.h"
 
 #define TLS_MSG_BUF_LEN 1024
 
