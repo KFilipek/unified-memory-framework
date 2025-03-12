@@ -92,9 +92,9 @@ umf_result_t umfCtlGet(const char *name, void *ctx, void *arg) {
 }
 
 umf_result_t umfCtlSet(const char *name, void *ctx, void *arg) {
-    if (name == NULL || arg == NULL || ctx == NULL) {
-        return UMF_RESULT_ERROR_INVALID_ARGUMENT;
-    }
+    // if (name == NULL || arg == NULL || ctx == NULL) {
+    //     return UMF_RESULT_ERROR_INVALID_ARGUMENT;
+    // }
     return ctl_query(NULL, ctx, CTL_QUERY_PROGRAMMATIC, name, CTL_QUERY_WRITE,
                      arg)
                ? UMF_RESULT_ERROR_UNKNOWN
@@ -140,6 +140,7 @@ static const umf_ctl_node_t *ctl_find_node(const umf_ctl_node_t *nodes,
      * in the main ctl tree.
      */
     while (node_name != NULL) {
+        printf("node_name: %s\n", node_name);
         *name_offset = node_name - parse_str;
         if (n != NULL && n->type == CTL_NODE_SUBTREE) {
             // if a subtree occurs, the subtree handler should be called

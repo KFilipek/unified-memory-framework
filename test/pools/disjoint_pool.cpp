@@ -12,9 +12,16 @@
 #include "provider.hpp"
 #include "provider_null.h"
 #include "provider_trace.h"
+#include "umf/base.h"
 
 using umf_test::test;
 using namespace umf_test;
+
+TEST_F(test, disjointCTL) {
+    printf("disjointCTL\n");
+    const char* val = "123";
+    umfCtlSet("umf.pool.default.disjoint.shared_limit", NULL, (void*)val);
+}
 
 TEST_F(test, internals) {
     static umf_result_t expectedResult = UMF_RESULT_SUCCESS;

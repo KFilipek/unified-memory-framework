@@ -16,11 +16,16 @@
 
 #include <assert.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "base_alloc_global.h"
 #include "memory_pool_internal.h"
 #include "memory_provider_internal.h"
 #include "provider_tracking.h"
+
+enum { UMF_DEFAULT_SIZE = 128, UMF_DEFAULT_LEN = 128 };
+char CTL_DEFAULT_ENTRIES[UMF_DEFAULT_SIZE][UMF_DEFAULT_LEN] = {0};
+char CTL_DEFAULT_VALUES[UMF_DEFAULT_SIZE][UMF_DEFAULT_LEN] = {0};
 
 static int CTL_SUBTREE_HANDLER(by_handle_pool)(void *ctx,
                                                umf_ctl_query_source_t source,
@@ -34,7 +39,36 @@ static int CTL_SUBTREE_HANDLER(by_handle_pool)(void *ctx,
     return 0;
 }
 
+static int CTL_SUBTREE_HANDLER(default)(void *ctx,
+                                               umf_ctl_query_source_t source,
+                                               void *arg,
+                                               umf_ctl_index_utlist_t *indexes,
+                                               const char *extra_name,
+                                               umf_ctl_query_type_t queryType) {
+    (void)indexes, (void)source;
+    (void)arg, (void)queryType, (void)extra_name, (void)ctx;
+
+    printf("Adding %s\n", extra_name);
+
+    for (int i = 0; i < UMF_DEFAULT_SIZE; i++) {
+        if (CTL_DEFAULT_ENTRIES[i][0] == '\0') {
+            strncpy(CTL_DEFAULT_ENTRIES[i], extra_name, UMF_DEFAULT_LEN);
+            strncpy(CTL_DEFAULT_VALUES[i], arg, UMF_DEFAULT_LEN);
+            break;
+        }
+    }
+    // Print all entries
+    for (int i = 0; i < UMF_DEFAULT_SIZE; i++) {
+        if (CTL_DEFAULT_ENTRIES[i][0] != '\0') {
+            printf("%s=", CTL_DEFAULT_ENTRIES[i]);
+            printf("%s\n", CTL_DEFAULT_VALUES[i]);
+        }
+    }
+    return 0;
+}
+
 umf_ctl_node_t CTL_NODE(pool)[] = {CTL_LEAF_SUBTREE2(by_handle, by_handle_pool),
+                                   CTL_LEAF_SUBTREE(default),
                                    CTL_NODE_END};
 
 static umf_result_t umfDefaultCtlPoolHandle(void *hPool, int operationType,
