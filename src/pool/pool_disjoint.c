@@ -17,6 +17,7 @@
 #include <umf/memory_provider.h>
 
 #include "base_alloc_global.h"
+#include "pool_disjoint_ctl.h"
 #include "pool_disjoint_internal.h"
 #include "provider/provider_tracking.h"
 #include "uthash/utlist.h"
@@ -623,6 +624,7 @@ umf_result_t disjoint_pool_initialize(umf_memory_provider_handle_t provider,
 
     // Calculate the exponent for min_bucket_size used for finding buckets.
     disjoint_pool->min_bucket_size_exp = (size_t)log2Utils(Size1);
+    // CTL: find the entry in CTL
     disjoint_pool->default_shared_limits =
         umfDisjointPoolSharedLimitsCreate(SIZE_MAX);
 
@@ -912,6 +914,7 @@ static umf_memory_pool_ops_t UMF_DISJOINT_POOL_OPS = {
     .malloc_usable_size = disjoint_pool_malloc_usable_size,
     .free = disjoint_pool_free,
     .get_last_allocation_error = disjoint_pool_get_last_allocation_error,
+    .ctl = disjoint_pool_ctl,
 };
 
 umf_memory_pool_ops_t *umfDisjointPoolOps(void) {

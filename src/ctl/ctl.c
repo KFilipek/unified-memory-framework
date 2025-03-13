@@ -49,6 +49,11 @@
 static int ctl_global_first_free = 0;
 static umf_ctl_node_t CTL_NODE(global)[CTL_MAX_ENTRIES];
 
+/* DEFAULT VALUES */
+enum { CTL_DEFAULT_VALUES_NUM = 255, CTL_DEFAULT_VALUES_MAX_LEN = 255 };
+char CTL_DEFAULT_VALUES[CTL_DEFAULT_VALUES_NUM][CTL_DEFAULT_VALUES_MAX_LEN] = {
+    "\0"};
+
 /*
  * This is the top level node of the ctl tree structure. Each node can contain
  * children and leaf nodes.
@@ -92,7 +97,24 @@ umf_result_t umfCtlGet(const char *name, void *ctx, void *arg) {
 }
 
 umf_result_t umfCtlSet(const char *name, void *ctx, void *arg) {
-    if (name == NULL || arg == NULL || ctx == NULL) {
+    if (name == NULL) {
+        return UMF_RESULT_ERROR_INVALID_ARGUMENT;
+    }
+
+    // If default provided, place the default value at the end of array
+    if (strstr(name, ".default.") != NULL) {
+        int i = 0;
+        while (i < CTL_DEFAULT_VALUES_NUM && CTL_DEFAULT_VALUES[i][0] != '\0') {
+            i++;
+        }
+        if (i == CTL_DEFAULT_VALUES_NUM) {
+            return UMF_RESULT_ERROR_UNKNOWN;
+        }
+        strncpy(CTL_DEFAULT_VALUES[i], name, CTL_DEFAULT_VALUES_MAX_LEN);
+        return UMF_RESULT_SUCCESS;
+    }
+
+    if (ctx == NULL || arg == NULL) {
         return UMF_RESULT_ERROR_INVALID_ARGUMENT;
     }
     return ctl_query(NULL, ctx, CTL_QUERY_PROGRAMMATIC, name, CTL_QUERY_WRITE,

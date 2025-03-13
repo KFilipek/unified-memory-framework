@@ -2,6 +2,7 @@
 // Under the Apache License v2.0 with LLVM Exceptions. See LICENSE.TXT.
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
+#include <cstdlib>
 #include <memory>
 
 #include <umf/pools/pool_disjoint.h>
@@ -12,6 +13,7 @@
 #include "provider.hpp"
 #include "provider_null.h"
 #include "provider_trace.h"
+#include "umf/base.h"
 
 using umf_test::test;
 using namespace umf_test;
@@ -326,6 +328,10 @@ TEST_F(test, disjointPoolInvalidBucketSize) {
     EXPECT_EQ(res, UMF_RESULT_ERROR_INVALID_ARGUMENT);
 
     umfDisjointPoolParamsDestroy(params);
+}
+
+TEST_F(test, disjointCTL) {
+    umfCtlSet("umf.pool.disjoint.default.capacity=1024", NULL, NULL);
 }
 
 INSTANTIATE_TEST_SUITE_P(disjointPoolTests, umfPoolTest,

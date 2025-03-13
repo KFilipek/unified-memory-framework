@@ -434,8 +434,9 @@ static void initialize_pool_ctl(void) {
     CTL_REGISTER_MODULE(pool_scallable_ctl_root, params);
 }
 
-static umf_result_t pool_ctl(void *hPool, int operationType, const char *name,
-                             void *arg, umf_ctl_query_type_t query_type) {
+static umf_result_t scalable_pool_ctl(void *hPool, int operationType,
+                                      const char *name, void *arg,
+                                      umf_ctl_query_type_t query_type) {
     (void)operationType; // unused
     umf_memory_pool_handle_t pool_provider = (umf_memory_pool_handle_t)hPool;
     utils_init_once(&ctl_initialized, initialize_pool_ctl);
@@ -454,7 +455,8 @@ static umf_memory_pool_ops_t UMF_SCALABLE_POOL_OPS = {
     .malloc_usable_size = tbb_malloc_usable_size,
     .free = tbb_free,
     .get_last_allocation_error = tbb_get_last_allocation_error,
-    .ctl = pool_ctl};
+    .ctl = scalable_pool_ctl,
+};
 
 umf_memory_pool_ops_t *umfScalablePoolOps(void) {
     return &UMF_SCALABLE_POOL_OPS;
